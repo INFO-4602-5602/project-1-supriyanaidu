@@ -35,7 +35,18 @@
 
     <script type="text/javascript">
         // Put your part one code here ***********************
-
+        d3.csv("../data/anscombe_I.csv", function(data){
+          var dataset1 = data;
+          checkDataset(dataset1);});
+        d3.csv("../data/anscombe_II.csv", function(data){
+          var dataset2 = data;
+          checkDataset(dataset2);});
+        d3.csv("../data/anscombe_III.csv", function(data){
+          var dataset3 = data;
+          checkDataset(dataset3);});
+        d3.csv("../data/anscombe_IV.csv", function(data){
+          var dataset4 = data;
+          checkDataset(dataset4);});
 
         // Leave this to test your data uploading. All data uploading should be above this line
         function checkDataset(dataset) {
@@ -46,7 +57,10 @@
         }
 
         // Put your part two code here ***********************
-
+        // set the dimensions and margins of the graph
+        var margin = {top: 20, right: 20, bottom: 30, left: 50};
+        var width = 960 - margin.left - margin.right;
+        var height = 500 - margin.top - margin.bottom;
 
 
         // Put your part three & four code here ***********************
