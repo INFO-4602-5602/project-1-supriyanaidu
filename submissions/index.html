@@ -86,8 +86,8 @@
 						 });
 
 						  // Scale the range of the data
-						 x.domain([3, d3.max(data, function(d) {return d[xVal];})]);
-						 y.domain([2, d3.max(data, function(d) {return d[yVal];})]);
+						 x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+						 y.domain([2, d3.max(data, function(d) {return d[yVal]+1;})]);
 
 						 // Add the scatterplot points
 						  svg.selectAll("circle")
@@ -100,11 +100,6 @@
 					       .attr("stroke","red")
 								 .attr("fill","orange");
 
-					       // .transition()
-					       // .ease(d3.easeBounce)
-					       // .duration(4000)
-					       // .attr("r", function(d){ return d["TFIDF"];});
-
 			        // Add the X Axis
 			        svg.append("g")
 			           .attr("transform","translate(0, " + height + ")")
@@ -113,6 +108,21 @@
 			        // Add the Y Axis
 			        svg.append("g")
 			           .call(d3.axisLeft(y));
+
+								 // Add text labels
+						     var xLabel = svg.append("text")
+						                     .attr("class", "label")
+						                     .text("x-values")
+						                     .attr("x", width - 445)
+						                     .attr("y", height + 29);
+
+						     var xLabel = svg.append("text")
+						                     .attr("class", "label")
+						                     .text("y-values")
+																 .attr("x",  -232)
+						                     .attr("y", -20)
+						                     .attr("transform", "rotate(-90)");
+						                     // .style("text-anchor", "start");
 				});
 
 
