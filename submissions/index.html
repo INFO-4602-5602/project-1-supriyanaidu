@@ -17,7 +17,7 @@
     <div id="partTwo">
         <h1>Part Two: </h1>
         <div id="scatterplot">
-            <!-- <p id="scatterLabel"></p> -->
+            <p id="scatterLabel"></p>
         </div>
 	</div>
 
@@ -87,7 +87,7 @@
 
 						  // Scale the range of the data
 						 x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-						 y.domain([2, d3.max(data, function(d) {return d[yVal]+1;})]);
+						 y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
 						 // Add the scatterplot points
 						  svg.selectAll("circle")
@@ -97,7 +97,7 @@
 					       .attr("r", 5)
 					       .attr("cx", function(d){ return x(d[xVal]);})
 					       .attr("cy", function(d){ return y(d[yVal]);})
-					       .attr("stroke","red")
+					       // .attr("stroke","red")
 								 .attr("fill","orange");
 
 			        // Add the X Axis
@@ -120,13 +120,74 @@
 						                     .attr("class", "label")
 						                     .text("y-values")
 																 .attr("x",  -232)
-						                     .attr("y", -20)
+						                     .attr("y", -23)
 						                     .attr("transform", "rotate(-90)");
-						                     // .style("text-anchor", "start");
-				});
+					});
 
+        // // Put your part three & four code here ***********************
+				var linesvg = d3.select("#linegraph").append("svg")
+            				.attr("width", width + margin.left + margin.right)
+            				.attr("height", height + margin.top + margin.bottom)
+            				.append("g")
+            				.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-        // Put your part three & four code here ***********************
+				var line_values = d3.line()
+														.x(function(d){ return x(d[xVal]);})
+					 					        .y(function(d){ return y(d[yVal]);});
+
+				// Get the data
+				d3.csv("../data/anscombe_II.csv", function(error,data){
+						 if (error) throw error;
+             // without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+						 data.forEach(function(d){
+							 d.x = parseInt(d.x);
+						 });
+
+						  // Scale the range of the data
+						 x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+						 y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+
+						 // Add the scatterplot points
+						  linesvg.append("path")
+					       .datum(data)
+					       .attr("stroke","orange")
+								 .attr("fill","none")
+								 .attr("stroke-width","2px")
+								 .attr("d",line_values);
+
+							// linesvg.selectAll("dot")
+ 					    //    .data(data)
+ 					    //    .enter()
+ 					    //    .append("circle")
+ 					    //    .attr("r", 5)
+ 					    //    .attr("cx", function(d){ return x(d[xVal]);})
+ 					    //    .attr("cy", function(d){ return y(d[yVal]);})
+ 					    //    .attr("stroke","red")
+ 							// 	 .attr("fill","orange");
+
+			        // Add the X Axis
+			        linesvg.append("g")
+			           .attr("transform","translate(0, " + height + ")")
+			           .call(d3.axisBottom(x));
+
+			        // Add the Y Axis
+			        linesvg.append("g")
+			           .call(d3.axisLeft(y));
+
+								 // Add text labels
+						     var xLabel = linesvg.append("text")
+						                     .attr("class", "label")
+						                     .text("x-values")
+						                     .attr("x", width - 445)
+						                     .attr("y", height + 29);
+
+						     var xLabel = linesvg.append("text")
+						                     .attr("class", "label")
+						                     .text("y-values")
+																 .attr("x",  -232)
+						                     .attr("y", -23)
+						                     .attr("transform", "rotate(-90)");
+					});
 
         // Put your part five code here ***********************
 
