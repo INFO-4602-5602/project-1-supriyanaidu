@@ -3,6 +3,16 @@ body {
     font-size: 11px;
 }
 
+div{
+	overflow: hidden;
+	/* width: 100%; */
+	/* vertical-align: top;
+  margin-bottom: 1em;
+  border-radius: 0.5em;
+  padding: 1em;
+  box-sizing: border-box; */
+}
+
 .axis path,
 .axis line {
     fill: none;
@@ -20,4 +30,13 @@ body {
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.side1{
+		width: 50%;
+		float: left;
+}
+
+.side2{
+		margin-left: 50%;
 }

@@ -159,7 +159,7 @@
 		});
 
         // Put your part three & four code here ***********************
-
+		
 		var linesvg = d3.select("#linegraph").append("svg")
 						.attr("width", width + margin.left + margin.right)
 						.attr("height", height + margin.top + margin.bottom)
@@ -173,7 +173,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_II.csv", function(error,data){
 			if (error) throw error;
-
+				 
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 			data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -227,7 +227,7 @@
 		});
 
         // Put your part five code here ***********************
-
+		
 		var scatter_1 = d3.select("#scatter_1").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -237,7 +237,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_I.csv", function(error,data){
 			if (error) throw error;
-
+				 
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -313,7 +313,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_I.csv", function(error,data){
 			if (error) throw error;
-
+				 
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -379,7 +379,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-
+		
 		var scatter_3 = d3.select("#scatter_3").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -389,7 +389,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_I.csv", function(error,data){
 			if (error) throw error;
-
+				 
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -455,7 +455,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-
+		
 		var scatter_4 = d3.select("#scatter_4").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -465,7 +465,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_I.csv", function(error,data){
 			if (error) throw error;
-
+				 
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -531,7 +531,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-
+		
     </script>
 </body>
 
