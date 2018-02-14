@@ -60,13 +60,13 @@
 
 	<script type="text/javascript">
 	// Put your part one code here ***********************
-	d3.csv("../data/anscombe_I.csv", function(data){
+	d3.csv("data/anscombe_I.csv", function(data){
 		checkDataset(data);});
- 	d3.csv("../data/anscombe_II.csv", function(data){
+ 	d3.csv("data/anscombe_II.csv", function(data){
 		checkDataset(data);});
-	d3.csv("../data/anscombe_III.csv", function(data){
+	d3.csv("data/anscombe_III.csv", function(data){
 		checkDataset(data);});
-	d3.csv("../data/anscombe_IV.csv", function(data){
+	d3.csv("data/anscombe_IV.csv", function(data){
 		checkDataset(data);});
 
 	// Leave this to test your data uploading. All data uploading should be above this line
@@ -99,7 +99,7 @@
 		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
-	d3.csv("../data/anscombe_I.csv", function(error,data){
+	d3.csv("data/anscombe_I.csv", function(error,data){
 		if (error) throw error;
 		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		data.forEach(function(d){
@@ -111,6 +111,8 @@
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
+		// Attempted Bell 1: tooltip on mouse hover over a point
+		// code modified from https://bl.ocks.org/mbostock/a84aeb78fea81e1ad806 for mouse events
 		// Add the scatterplot points
 		svg.selectAll("circle")
 		   .data(data)
@@ -119,29 +121,29 @@
 		   .attr("r", 5)
 		   .attr("cx", function(d){ return x(d[xVal]);})
 		   .attr("cy", function(d){ return y(d[yVal]);})
-		   .attr("stroke","red")
-		   .attr("fill","orange")
+		   .attr("stroke","teal")
+		   .attr("fill","none")
 		   .on("mouseover",function(d){
 		    d3.select(this)
 		    .transition()
 		    .duration(500)
 		    .style("stroke","blue")
-		    .style("fill","steelblue")
-		    .style("opacity", 0.5);
+		    .style("fill","blue")
+		    .style("opacity", 0.8);
 		    })
 		   .on("mouseout",function(d){
 		    d3.select(this)
 		    .transition()
 		    .duration(500)
-		    .style("stroke","red")
-		    .style("fill","orange")
-		    .style("opacity", 1);
+		    .style("stroke","teal")
+		    .style("fill","teal")
+		    .style("opacity", 0.8);
 		    })
 		   .on("click", function(d){
 			  $("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
 		    })
 		   .append("title")
-		    .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+		   .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
 
 		// Add the X Axis
 		svg.append("g")
@@ -152,12 +154,12 @@
 		svg.append("g")
 		   .call(d3.axisLeft(y));
 
+		// Code modified from http://www.d3noob.org/2013/01/adding-title-to-your-d3js-graph.html
 		svg.append("text")
 		.attr("class", "label")
 		.attr("x",(width /2))
-		.attr("y",0 - (margin-top /2))
-		.attr("text-anchor","middle")
-		.style("font-size","15px")
+		.attr("y",(margin.top /2))
+		.style("font-size","14px")
 		.text("Anscombe I");
 
 		// Add text labels
@@ -189,7 +191,7 @@
 		.curve(d3.curveLinear);
 
 	// Get the data
-	d3.csv("../data/anscombe_II.csv", function(error,data){
+	d3.csv("data/anscombe_II.csv", function(error,data){
 		if (error) throw error;
 
 	// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
@@ -206,15 +208,16 @@
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
-		// Add the scatterplot points
+		// Add the path for the line
 		linesvg.append("path")
 		   .datum(data)
 		   .attr("class","line")
-		   .attr("stroke","orange")
+		   .attr("stroke","purple")
 		   .attr("fill","none")
 		   .attr("stroke-width","2px")
 		   .attr("d",line_values);
 
+		// Add the dots to specify the values in the line
 		linesvg.selectAll("dot")
 		   .data(data)
 		   .enter()
@@ -222,7 +225,7 @@
 		   .attr("r", 2)
 		   .attr("cx", function(d){ return x(d[xVal]);})
 		   .attr("cy", function(d){ return y(d[yVal]);})
-		   .attr("fill","orange");
+		   .attr("fill","purple");
 
 		// Add the X Axis
 		linesvg.append("g")
@@ -236,9 +239,8 @@
 		linesvg.append("text")
 			.attr("class", "label")
 			.attr("x",(width /2))
-			.attr("y",0 - (margin-top /2))
-			.attr("text-anchor","middle")
-			.style("font-size","15px")
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
 			.text("Anscombe II");
 
 		// Add text labels
@@ -265,7 +267,7 @@
 		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
-	d3.csv("../data/anscombe_I.csv", function(error,data){
+	d3.csv("data/anscombe_I.csv", function(error,data){
 		if (error) throw error;
 		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		data.forEach(function(d){
@@ -321,9 +323,8 @@
 		scatter_1.append("text")
 		.attr("class", "label")
 		.attr("x",(width /2))
-		.attr("y",0 - (margin-top /2))
-		.attr("text-anchor","middle")
-		.style("font-size","15px")
+		.attr("y",(margin.top /2))
+		.style("font-size","14px")
 		.text("Anscombe I");
 
 		// Add text labels
@@ -348,7 +349,7 @@
 		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
-	d3.csv("../data/anscombe_II.csv", function(error,data){
+	d3.csv("data/anscombe_II.csv", function(error,data){
 		if (error) throw error;
 		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		data.forEach(function(d){
@@ -404,9 +405,8 @@
 		scatter_2.append("text")
 		.attr("class", "label")
 		.attr("x",(width /2))
-		.attr("y",0 - (margin-top /2))
-		.attr("text-anchor","middle")
-		.style("font-size","15px")
+		.attr("y",(margin.top /2))
+		.style("font-size","14px")
 		.text("Anscombe II");
 
 		// Add text labels
@@ -431,7 +431,7 @@
 		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
-	d3.csv("../data/anscombe_III.csv", function(error,data){
+	d3.csv("data/anscombe_III.csv", function(error,data){
 		if (error) throw error;
 		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		data.forEach(function(d){
@@ -487,9 +487,8 @@
 		scatter_3.append("text")
 		.attr("class", "label")
 		.attr("x",(width /2))
-		.attr("y",0 - (margin-top /2))
-		.attr("text-anchor","middle")
-		.style("font-size","15px")
+		.attr("y",(margin.top /2))
+		.style("font-size","14px")
 		.text("Anscombe III");
 
 		// Add text labels
@@ -514,7 +513,7 @@
 		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
-	d3.csv("../data/anscombe_IV.csv", function(error,data){
+	d3.csv("data/anscombe_IV.csv", function(error,data){
 		if (error) throw error;
 		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		data.forEach(function(d){
@@ -570,9 +569,8 @@
 		scatter_4.append("text")
 		.attr("class", "label")
 		.attr("x",(width /2))
-		.attr("y",0 - (margin-top /2))
-		.attr("text-anchor","middle")
-		.style("font-size","15px")
+		.attr("y",(margin.top /2))
+		.style("font-size","14px")
 		.text("Anscombe IV");
 
 		// Add text labels
@@ -603,7 +601,7 @@
 	// 	.attr("transform", "translate("+margin.left + "," + margin.top +")");
   //
 	// // Get the data
-	// d3.csv("../data/anscombe_II.csv", function(error,data){
+	// d3.csv("data/anscombe_II.csv", function(error,data){
 	// 	if (error) throw error;
 	// 	// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 	// 	data.forEach(function(d){

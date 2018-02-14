@@ -6,12 +6,6 @@ body {
 
 div{
 	overflow: hidden;
-	/* width: 100%; */
-	/* vertical-align: top;
-  margin-bottom: 1em;
-  border-radius: 0.5em;
-  padding: 1em;
-  box-sizing: border-box; */
 }
 
 .axis path,
@@ -33,11 +27,8 @@ div{
     cursor: pointer;
 }
 
+/* helper code from https://codepen.io/raddevon/pen/zlrhf */
 .side1{
 		width: 50%;
 		float: left;
 }
-
-/* .side2{
-		margin-left: 50%;
-} */
