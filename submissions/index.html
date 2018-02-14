@@ -14,152 +14,154 @@
         <h1>Part One: </h1>
 	</div>
 
-    <div id="partTwo">
-        <h1>Part Two &amp; Four: </h1>
-        <div id="scatterplot">
-            <p id="scatterLabel"></p>
-        </div>
+	<div id="partTwo">
+ 	<h1>Part Two &amp; Four: </h1>
+	<div id="scatterplot">
+		<p id="scatterLabel"></p>
+	</div>
 	</div>
 
-    <div id="partThree">
-        <h1>Part Three: </h1>
-        <div id="linegraph">
-        </div>
+	<div id="partThree">
+		<h1>Part Three: </h1>
+		<div id="linegraph">
+		</div>
 	</div>
 
-    <div id="partFive">
-        <h1>Part Five: </h1>
-        <div id="scatterplotSet">
-			<h3>Anscombe_I</h3>
+	<div id="partFive">
+		<h1>Part Five: </h1>
+		<div id="scatterplotSet">
 			<div id="scatter_1" class="side1">
-			  <p id="scatterLabel_1"></p>
+				<h3>Anscombe_I</h3>
+				<p id="scatterLabel_1"></p>
 			</div>
-			<h3>Anscombe_II</h3>
-			<div id="scatter_2" class="side2">
-			  <p id="scatterLabel_2"></p>
+			<div id="scatter_2" class="side1">
+				<h3>Anscombe_II</h3>
+				<p id="scatterLabel_2"></p>
 			</div>
-			<h3>Anscombe_III</h3>
 			<div id="scatter_3" class="side1">
-			  <p id="scatterLabel_3"></p>
+				<br />
+				<h3>Anscombe_III</h3>
+				<p id="scatterLabel_3"></p>
 			</div>
-			<h3>Anscombe_IV</h3>
-			<div id="scatter_4" class="side2">
-			  <p id="scatterLabel_4"></p>
+			<div id="scatter_4" class="side1">
+				<br />
+				<h3>Anscombe_IV</h3>
+				<p id="scatterLabel_4"></p>
 			</div>
-        </div>
+		</div>
 	</div>
 
-    <script type="text/javascript">
-        // Put your part one code here ***********************
-		d3.csv("../data/anscombe_I.csv", function(data){
-          checkDataset(data);});
-        d3.csv("../data/anscombe_II.csv", function(data){
-          checkDataset(data);});
-        d3.csv("../data/anscombe_III.csv", function(data){
-          checkDataset(data);});
-        d3.csv("../data/anscombe_IV.csv", function(data){
-          checkDataset(data);});
+	<script type="text/javascript">
+	// Put your part one code here ***********************
+	d3.csv("../data/anscombe_I.csv", function(data){
+		checkDataset(data);});
+ 	d3.csv("../data/anscombe_II.csv", function(data){
+		checkDataset(data);});
+  d3.csv("../data/anscombe_III.csv", function(data){
+		checkDataset(data);});
+	d3.csv("../data/anscombe_IV.csv", function(data){
+		checkDataset(data);});
 
-        // Leave this to test your data uploading. All data uploading should be above this line
-        function checkDataset(dataset) {
-            if (dataset.length == 11)
-                $("#partOne").append("<p>data loaded correctly</p>");
-            else
-                $("#partOne").append("<p>data loaded incorrectly. Try using the debugger to help you find the bug!</p>");
-        }
+	// Leave this to test your data uploading. All data uploading should be above this line
+	function checkDataset(dataset) {
+		if (dataset.length == 11)
+			$("#partOne").append("<p>data loaded correctly</p>");
+		else
+			$("#partOne").append("<p>data loaded incorrectly. Try using the debugger to help you find the bug!</p>");
+		}
 
-        // Put your part two code here ***********************
-				var xVal = "x"; var yVal = "y";
+	// Put your part two code here ***********************
+	var xVal = "x"; var yVal = "y";
 
-				// set the dimensions and margins of the graph
-        var margin = {top: 20, right: 20, bottom: 30, left: 50};
-        var width = 960 - margin.left - margin.right;
-        var height = 500 - margin.top - margin.bottom;
+	// set the dimensions and margins of the graph
+	var margin = {top: 20, right: 20, bottom: 30, left: 50};
+	var width = 500 - margin.left - margin.right;
+	var height = 400 - margin.top - margin.bottom;
 
-		// set the ranges for x and y axes
-		var x = d3.scaleLinear().range([0, width]);
-		var y = d3.scaleLinear().range([height, 0]);
+	// set the ranges for x and y axes
+	var x = d3.scaleLinear().range([0, width]);
+	var y = d3.scaleLinear().range([height, 0]);
 
-		// append the svg obgect to the body of the page;
-		// append a 'group' element to 'svg';
-		// move the 'group' element to the top left margin
-		var svg = d3.select("#scatterplot").append("svg")
-					.attr("width", width + margin.left + margin.right)
-					.attr("height", height + margin.top + margin.bottom)
-					.append("g")
-					.attr("transform", "translate("+margin.left + "," + margin.top +")");
+	// append the svg obgect to the body of the page;
+	// append a 'group' element to 'svg';
+	// move the 'group' element to the top left margin
+	var svg = d3.select("#scatterplot").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-		// Get the data
-		d3.csv("../data/anscombe_II.csv", function(error,data){
-			if (error) throw error;
-            // without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-			data.forEach(function(d){
-				d.x = parseInt(d.x);
-				d.y = parseFloat(d.y);
-			});
+	// Get the data
+	d3.csv("../data/anscombe_II.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
+		});
 
-			// Scale the range of the data
-			x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-			y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
-			// Add the scatterplot points
-			svg.selectAll("circle")
-			   .data(data)
-			   .enter()
-			   .append("circle")
-			   .attr("r", 5)
-			   .attr("cx", function(d){ return x(d[xVal]);})
-			   .attr("cy", function(d){ return y(d[yVal]);})
-			   .attr("stroke","red")
-			   .attr("fill","orange")
-			   .on("mouseover",function(d){
-					d3.select(this)
-					  .transition()
-					  .duration(500)
-					  .style("stroke","blue")
-					  .style("fill","steelblue")
-					  .style("opacity", 0.5);
-				})
-				.on("mouseout",function(d){
+		// Add the scatterplot points
+		svg.selectAll("circle")
+		   .data(data)
+		   .enter()
+		   .append("circle")
+		   .attr("r", 5)
+		   .attr("cx", function(d){ return x(d[xVal]);})
+		   .attr("cy", function(d){ return y(d[yVal]);})
+		   // .attr("stroke","red")
+		   .attr("fill","orange")
+		   .on("mouseover",function(d){
 				d3.select(this)
 				  .transition()
 				  .duration(500)
-				  .style("stroke","red")
-			      .style("fill","orange")
-				  .style("opacity", 1);
-				})
-				.on("click", function(d){
-					$("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
-				})
-				.append("title")
-				.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+				  // .style("stroke","blue")
+				  .style("fill","steelblue")
+				  .style("opacity", 0.5);
+			})
+			.on("mouseout",function(d){
+			d3.select(this)
+			  .transition()
+			  .duration(500)
+			  // .style("stroke","red")
+		      .style("fill","orange")
+			  .style("opacity", 1);
+			})
+			.on("click", function(d){
+				$("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
+			})
+			.append("title")
+			.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
 
-			// Add the X Axis
-			svg.append("g")
-			   .attr("transform","translate(0, " + height + ")")
-			   .call(d3.axisBottom(x));
+		// Add the X Axis
+		svg.append("g")
+		   .attr("transform","translate(0, " + height + ")")
+		   .call(d3.axisBottom(x));
 
-			// Add the Y Axis
-			svg.append("g")
-			   .call(d3.axisLeft(y));
+		// Add the Y Axis
+		svg.append("g")
+		   .call(d3.axisLeft(y));
 
-			// Add text labels
-			var xLabel = svg.append("text")
-							.attr("class", "label")
-							.text("x-values")
-							.attr("x", width - 445)
-							.attr("y", height + 29);
+		// Add text labels
+		var xLabel = svg.append("text")
+						.attr("class", "label")
+						.text("x-values")
+						.attr("x", width - 445)
+						.attr("y", height + 29);
 
-			var yLabel = svg.append("text")
-							.attr("class", "label")
-							.text("y-values")
-							.attr("x",  -232)
-							.attr("y", -23)
-							.attr("transform", "rotate(-90)");
-		});
+		var yLabel = svg.append("text")
+						.attr("class", "label")
+						.text("y-values")
+						.attr("x",  -232)
+						.attr("y", -23)
+						.attr("transform", "rotate(-90)");
+	});
 
         // Put your part three & four code here ***********************
-		
+
 		var linesvg = d3.select("#linegraph").append("svg")
 						.attr("width", width + margin.left + margin.right)
 						.attr("height", height + margin.top + margin.bottom)
@@ -173,11 +175,12 @@
 		// Get the data
 		d3.csv("../data/anscombe_II.csv", function(error,data){
 			if (error) throw error;
-				 
+
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 			data.forEach(function(d){
 				d.x = parseInt(d.x);
 				d.y = parseFloat(d.y);
+				d.x = d.sort(function(a,b){ return (a.x - b.x);});
 			 });
 
 			// Scale the range of the data
@@ -192,15 +195,15 @@
 				   .attr("stroke-width","2px")
 				   .attr("d",line_values);
 
-			linesvg.selectAll("dot")
-				   .data(data)
-				   .enter()
-				   .append("circle")
-				   .attr("r", 5)
-				   .attr("cx", function(d){ return x(d[xVal]);})
-				   .attr("cy", function(d){ return y(d[yVal]);})
-				   .attr("stroke","red")
-				   .attr("fill","orange");
+			// linesvg.selectAll("dot")
+			// 	   .data(data)
+			// 	   .enter()
+			// 	   .append("circle")
+			// 	   .attr("r", 5)
+			// 	   .attr("cx", function(d){ return x(d[xVal]);})
+			// 	   .attr("cy", function(d){ return y(d[yVal]);})
+			// 	   .attr("stroke","red")
+			// 	   .attr("fill","orange");
 
 			// Add the X Axis
 			linesvg.append("g")
@@ -227,7 +230,7 @@
 		});
 
         // Put your part five code here ***********************
-		
+
 		var scatter_1 = d3.select("#scatter_1").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -237,7 +240,7 @@
 		// Get the data
 		d3.csv("../data/anscombe_I.csv", function(error,data){
 			if (error) throw error;
-				 
+
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -256,7 +259,7 @@
 					 .attr("r", 5)
 					 .attr("cx", function(d){ return x(d[xVal]);})
 					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
+					 // .attr("stroke","red")
 					 .attr("fill","orange")
 					 .on("mouseover",function(d){
 						d3.select(this)
@@ -270,7 +273,7 @@
 						d3.select(this)
 						 .transition()
 						 .duration(500)
-						 .style("stroke","red")
+						 // .style("stroke","red")
 						 .style("fill","orange")
 						 .style("opacity", 1);
 					 })
@@ -311,9 +314,9 @@
 						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 		// Get the data
-		d3.csv("../data/anscombe_I.csv", function(error,data){
+		d3.csv("../data/anscombe_II.csv", function(error,data){
 			if (error) throw error;
-				 
+
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -332,7 +335,7 @@
 					 .attr("r", 5)
 					 .attr("cx", function(d){ return x(d[xVal]);})
 					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
+					 // .attr("stroke","red")
 					 .attr("fill","orange")
 					 .on("mouseover",function(d){
 						d3.select(this)
@@ -346,7 +349,7 @@
 						d3.select(this)
 						 .transition()
 						 .duration(500)
-						 .style("stroke","red")
+						 // .style("stroke","red")
 						 .style("fill","orange")
 						 .style("opacity", 1);
 					 })
@@ -379,7 +382,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-		
+
 		var scatter_3 = d3.select("#scatter_3").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -387,9 +390,9 @@
 						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 		// Get the data
-		d3.csv("../data/anscombe_I.csv", function(error,data){
+		d3.csv("../data/anscombe_III.csv", function(error,data){
 			if (error) throw error;
-				 
+
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -408,7 +411,7 @@
 					 .attr("r", 5)
 					 .attr("cx", function(d){ return x(d[xVal]);})
 					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
+					 // .attr("stroke","red")
 					 .attr("fill","orange")
 					 .on("mouseover",function(d){
 						d3.select(this)
@@ -422,7 +425,7 @@
 						d3.select(this)
 						 .transition()
 						 .duration(500)
-						 .style("stroke","red")
+						 // .style("stroke","red")
 						 .style("fill","orange")
 						 .style("opacity", 1);
 					 })
@@ -455,7 +458,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-		
+
 		var scatter_4 = d3.select("#scatter_4").append("svg")
 						  .attr("width", width + margin.left + margin.right)
 						  .attr("height", height + margin.top + margin.bottom)
@@ -463,9 +466,9 @@
 						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 		// Get the data
-		d3.csv("../data/anscombe_I.csv", function(error,data){
+		d3.csv("../data/anscombe_IV.csv", function(error,data){
 			if (error) throw error;
-				 
+
 			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
 		    data.forEach(function(d){
 				d.x = parseInt(d.x);
@@ -484,7 +487,7 @@
 					 .attr("r", 5)
 					 .attr("cx", function(d){ return x(d[xVal]);})
 					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
+					 // .attr("stroke","red")
 					 .attr("fill","orange")
 					 .on("mouseover",function(d){
 						d3.select(this)
@@ -498,7 +501,7 @@
 						d3.select(this)
 						 .transition()
 						 .duration(500)
-						 .style("stroke","red")
+						 // .style("stroke","red")
 						 .style("fill","orange")
 						 .style("opacity", 1);
 					 })
@@ -531,7 +534,7 @@
 								  .attr("y", -23)
 								  .attr("transform", "rotate(-90)");
 		});
-		
+
     </script>
 </body>
 
