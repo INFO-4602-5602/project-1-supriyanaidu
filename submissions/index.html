@@ -57,7 +57,7 @@
 		checkDataset(data);});
  	d3.csv("../data/anscombe_II.csv", function(data){
 		checkDataset(data);});
-  d3.csv("../data/anscombe_III.csv", function(data){
+	d3.csv("../data/anscombe_III.csv", function(data){
 		checkDataset(data);});
 	d3.csv("../data/anscombe_IV.csv", function(data){
 		checkDataset(data);});
@@ -86,10 +86,10 @@
 	// append a 'group' element to 'svg';
 	// move the 'group' element to the top left margin
 	var svg = d3.select("#scatterplot").append("svg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-				.append("g")
-				.attr("transform", "translate("+margin.left + "," + margin.top +")");
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
 	// Get the data
 	d3.csv("../data/anscombe_II.csv", function(error,data){
