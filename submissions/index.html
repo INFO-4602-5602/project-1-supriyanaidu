@@ -29,23 +29,20 @@
 
 	<div id="partFive">
 		<h1>Part Five: </h1>
+		<h2>Anscombe Quartet</h2>
 		<div id="scatterplotSet">
 			<div id="scatter_1" class="side1">
-				<h3>Anscombe_I</h3>
 				<p id="scatterLabel_1"></p>
 			</div>
 			<div id="scatter_2" class="side1">
-				<h3>Anscombe_II</h3>
 				<p id="scatterLabel_2"></p>
 			</div>
 			<div id="scatter_3" class="side1">
 				<br />
-				<h3>Anscombe_III</h3>
 				<p id="scatterLabel_3"></p>
 			</div>
 			<div id="scatter_4" class="side1">
 				<br />
-				<h3>Anscombe_IV</h3>
 				<p id="scatterLabel_4"></p>
 			</div>
 		</div>
@@ -156,6 +153,7 @@
 		   .call(d3.axisLeft(y));
 
 		svg.append("text")
+		.attr("class", "label")
 		.attr("x",(width /2))
 		.attr("y",0 - (margin-top /2))
 		.attr("text-anchor","middle")
@@ -177,7 +175,7 @@
 			.attr("transform", "rotate(-90)");
 	});
 
-        // Put your part three & four code here ***********************
+	// Put your part three & four code here ***********************
 
 	var linesvg = d3.select("#linegraph").append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -236,6 +234,7 @@
 		   .call(d3.axisLeft(y));
 
 		linesvg.append("text")
+			.attr("class", "label")
 			.attr("x",(width /2))
 			.attr("y",0 - (margin-top /2))
 			.attr("text-anchor","middle")
@@ -257,311 +256,339 @@
 			.attr("transform", "rotate(-90)");
 	});
 
-        // Put your part five code here ***********************
+	// Put your part five code here ***********************
 
-		var scatter_1 = d3.select("#scatter_1").append("svg")
-						  .attr("width", width + margin.left + margin.right)
-						  .attr("height", height + margin.top + margin.bottom)
-						  .append("g")
-						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
+	var scatter_1 = d3.select("#scatter_1").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-		// Get the data
-		d3.csv("../data/anscombe_I.csv", function(error,data){
-			if (error) throw error;
-
-			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-		    data.forEach(function(d){
-				d.x = parseInt(d.x);
-				d.y = parseFloat(d.y);
-			});
-
-			// Scale the range of the data
-			x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-			y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
-
-			// Add the scatterplot points
-			scatter_1.selectAll("circle")
-					 .data(data)
-					 .enter()
-					 .append("circle")
-					 .attr("r", 5)
-					 .attr("cx", function(d){ return x(d[xVal]);})
-					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
-					 .attr("fill","orange")
-					 .on("mouseover",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","blue")
-						 .style("fill","steelblue")
-						 .style("opacity", 0.5);
-					 })
-					 .on("mouseout",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","red")
-						 .style("fill","orange")
-						 .style("opacity", 1);
-					 })
-					 .on("click", function(d){
-						$("#scatterLabel_1").text("x = " + d.x + "\ty = " + d.y);
-					 })
-					 .append("title")
-					 .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
-
-			// Add the X Axis
-			scatter_1.append("g")
-				     .attr("transform","translate(0, " + height + ")")
-					 .call(d3.axisBottom(x));
-
-			// Add the Y Axis
-			scatter_1.append("g")
-					 .call(d3.axisLeft(y));
-
-			// Add text labels
-			var xLabel = scatter_1.append("text")
-								  .attr("class", "label")
-								  .text("x-values")
-								  .attr("x", width - 445)
-								  .attr("y", height + 29);
-
-			 var yLabel =scatter_1.append("text")
-								  .attr("class", "label")
-								  .text("y-values")
-								  .attr("x",  -232)
-								  .attr("y", -23)
-								  .attr("transform", "rotate(-90)");
+	// Get the data
+	d3.csv("../data/anscombe_I.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
 		});
 
-		var scatter_2 = d3.select("#scatter_2").append("svg")
-						  .attr("width", width + margin.left + margin.right)
-						  .attr("height", height + margin.top + margin.bottom)
-						  .append("g")
-						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
-		// Get the data
-		d3.csv("../data/anscombe_II.csv", function(error,data){
-			if (error) throw error;
+		// Add the scatterplot points
+		scatter_1.selectAll("circle")
+			 .data(data)
+			 .enter()
+			 .append("circle")
+			 .attr("r", 5)
+			 .attr("cx", function(d){ return x(d[xVal]);})
+			 .attr("cy", function(d){ return y(d[yVal]);})
+			 .attr("stroke","red")
+			 .attr("fill","orange")
+			 .on("mouseover",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","blue")
+				.style("fill","steelblue")
+				.style("opacity", 0.5);
+				})
+			 .on("mouseout",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","red")
+				.style("fill","orange")
+				.style("opacity", 1);
+				})
+			 .on("click", function(d){
+				$("#scatterLabel_1").text("x = " + d.x + "\ty = " + d.y);
+				})
+			 .append("title")
+				.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
 
-			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-		    data.forEach(function(d){
-				d.x = parseInt(d.x);
-				d.y = parseFloat(d.y);
-			});
+		// Add the X Axis
+		scatter_1.append("g")
+			 .attr("transform","translate(0, " + height + ")")
+			 .call(d3.axisBottom(x));
 
-			// Scale the range of the data
-			x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-			y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+		// Add the Y Axis
+		scatter_1.append("g")
+			 .call(d3.axisLeft(y));
 
-			// Add the scatterplot points
-			scatter_2.selectAll("circle")
-					 .data(data)
-					 .enter()
-					 .append("circle")
-					 .attr("r", 5)
-					 .attr("cx", function(d){ return x(d[xVal]);})
-					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
-					 .attr("fill","orange")
-					 .on("mouseover",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","blue")
-						 .style("fill","steelblue")
-						 .style("opacity", 0.5);
-					 })
-					 .on("mouseout",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","red")
-						 .style("fill","orange")
-						 .style("opacity", 1);
-					 })
-					 .on("click", function(d){
-						$("#scatterLabel_2").text("x = " + d.x + "\ty = " + d.y);
-					 })
-					 .append("title")
-					 .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+		scatter_1.append("text")
+		.attr("class", "label")
+		.attr("x",(width /2))
+		.attr("y",0 - (margin-top /2))
+		.attr("text-anchor","middle")
+		.style("font-size","15px")
+		.text("Anscombe I");
 
-			// Add the X Axis
-			scatter_2.append("g")
-				     .attr("transform","translate(0, " + height + ")")
-					 .call(d3.axisBottom(x));
+		// Add text labels
+		var xLabel = scatter_1.append("text")
+			.attr("class", "label")
+			.text("x-values")
+			.attr("x", width - 213)
+			.attr("y", height + 29);
 
-			// Add the Y Axis
-			scatter_2.append("g")
-					 .call(d3.axisLeft(y));
+		var yLabel = scatter_1.append("text")
+			.attr("class", "label")
+			.text("y-values")
+			.attr("x",  -183)
+			.attr("y", -28)
+			.attr("transform", "rotate(-90)");
+	});
 
-			// Add text labels
-			var xLabel = scatter_2.append("text")
-								  .attr("class", "label")
-								  .text("x-values")
-								  .attr("x", width - 445)
-								  .attr("y", height + 29);
+	var scatter_2 = d3.select("#scatter_2").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-			 var yLabel =scatter_2.append("text")
-								  .attr("class", "label")
-								  .text("y-values")
-								  .attr("x",  -232)
-								  .attr("y", -23)
-								  .attr("transform", "rotate(-90)");
+	// Get the data
+	d3.csv("../data/anscombe_II.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
 		});
 
-		var scatter_3 = d3.select("#scatter_3").append("svg")
-						  .attr("width", width + margin.left + margin.right)
-						  .attr("height", height + margin.top + margin.bottom)
-						  .append("g")
-						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
-		// Get the data
-		d3.csv("../data/anscombe_III.csv", function(error,data){
-			if (error) throw error;
+		// Add the scatterplot points
+		scatter_2.selectAll("circle")
+			 .data(data)
+			 .enter()
+			 .append("circle")
+			 .attr("r", 5)
+			 .attr("cx", function(d){ return x(d[xVal]);})
+			 .attr("cy", function(d){ return y(d[yVal]);})
+			 .attr("stroke","red")
+			 .attr("fill","orange")
+			 .on("mouseover",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","blue")
+				.style("fill","steelblue")
+				.style("opacity", 0.5);
+				})
+			 .on("mouseout",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","red")
+				.style("fill","orange")
+				.style("opacity", 1);
+				})
+			 .on("click", function(d){
+				$("#scatterLabel_2").text("x = " + d.x + "\ty = " + d.y);
+				})
+			 .append("title")
+				.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
 
-			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-		    data.forEach(function(d){
-				d.x = parseInt(d.x);
-				d.y = parseFloat(d.y);
-			});
+		// Add the X Axis
+		scatter_2.append("g")
+			 .attr("transform","translate(0, " + height + ")")
+			 .call(d3.axisBottom(x));
 
-			// Scale the range of the data
-			x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-			y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+		// Add the Y Axis
+		scatter_2.append("g")
+			 .call(d3.axisLeft(y));
 
-			// Add the scatterplot points
-			scatter_3.selectAll("circle")
-					 .data(data)
-					 .enter()
-					 .append("circle")
-					 .attr("r", 5)
-					 .attr("cx", function(d){ return x(d[xVal]);})
-					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
-					 .attr("fill","orange")
-					 .on("mouseover",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","blue")
-						 .style("fill","steelblue")
-						 .style("opacity", 0.5);
-					 })
-					 .on("mouseout",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","red")
-						 .style("fill","orange")
-						 .style("opacity", 1);
-					 })
-					 .on("click", function(d){
-						$("#scatterLabel_3").text("x = " + d.x + "\ty = " + d.y);
-					 })
-					 .append("title")
-					 .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+		scatter_2.append("text")
+		.attr("class", "label")
+		.attr("x",(width /2))
+		.attr("y",0 - (margin-top /2))
+		.attr("text-anchor","middle")
+		.style("font-size","15px")
+		.text("Anscombe II");
 
-			// Add the X Axis
-			scatter_3.append("g")
-				     .attr("transform","translate(0, " + height + ")")
-					 .call(d3.axisBottom(x));
+		// Add text labels
+		var xLabel = scatter_2.append("text")
+			.attr("class", "label")
+			.text("x-values")
+			.attr("x", width - 213)
+			.attr("y", height + 29);
 
-			// Add the Y Axis
-			scatter_3.append("g")
-					 .call(d3.axisLeft(y));
+		var yLabel = scatter_2.append("text")
+			.attr("class", "label")
+			.text("y-values")
+			.attr("x",  -183)
+			.attr("y", -28)
+			.attr("transform", "rotate(-90)");
+	});
 
-			// Add text labels
-			var xLabel = scatter_3.append("text")
-								  .attr("class", "label")
-								  .text("x-values")
-								  .attr("x", width - 445)
-								  .attr("y", height + 29);
+	var scatter_3 = d3.select("#scatter_3").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-			 var yLabel =scatter_3.append("text")
-								  .attr("class", "label")
-								  .text("y-values")
-								  .attr("x",  -232)
-								  .attr("y", -23)
-								  .attr("transform", "rotate(-90)");
+	// Get the data
+	d3.csv("../data/anscombe_III.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
 		});
 
-		var scatter_4 = d3.select("#scatter_4").append("svg")
-						  .attr("width", width + margin.left + margin.right)
-						  .attr("height", height + margin.top + margin.bottom)
-						  .append("g")
-						  .attr("transform", "translate("+margin.left + "," + margin.top +")");
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
-		// Get the data
-		d3.csv("../data/anscombe_IV.csv", function(error,data){
-			if (error) throw error;
+		// Add the scatterplot points
+		scatter_3.selectAll("circle")
+			 .data(data)
+			 .enter()
+			 .append("circle")
+			 .attr("r", 5)
+			 .attr("cx", function(d){ return x(d[xVal]);})
+			 .attr("cy", function(d){ return y(d[yVal]);})
+			 .attr("stroke","red")
+			 .attr("fill","orange")
+			 .on("mouseover",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","blue")
+				.style("fill","steelblue")
+				.style("opacity", 0.5);
+				})
+			 .on("mouseout",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","red")
+				.style("fill","orange")
+				.style("opacity", 1);
+				})
+			 .on("click", function(d){
+				$("#scatterLabel_3").text("x = " + d.x + "\ty = " + d.y);
+				})
+			 .append("title")
+				.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
 
-			// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-		    data.forEach(function(d){
-				d.x = parseInt(d.x);
-				d.y = parseFloat(d.y);
-			});
+		// Add the X Axis
+		scatter_3.append("g")
+			 .attr("transform","translate(0, " + height + ")")
+			 .call(d3.axisBottom(x));
 
-			// Scale the range of the data
-			x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
-			y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+		// Add the Y Axis
+		scatter_3.append("g")
+			 .call(d3.axisLeft(y));
 
-			// Add the scatterplot points
-			scatter_4.selectAll("circle")
-					 .data(data)
-					 .enter()
-					 .append("circle")
-					 .attr("r", 5)
-					 .attr("cx", function(d){ return x(d[xVal]);})
-					 .attr("cy", function(d){ return y(d[yVal]);})
-					 .attr("stroke","red")
-					 .attr("fill","orange")
-					 .on("mouseover",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","blue")
-						 .style("fill","steelblue")
-						 .style("opacity", 0.5);
-					 })
-					 .on("mouseout",function(d){
-						d3.select(this)
-						 .transition()
-						 .duration(500)
-						 .style("stroke","red")
-						 .style("fill","orange")
-						 .style("opacity", 1);
-					 })
-					 .on("click", function(d){
-						$("#scatterLabel_4").text("x = " + d.x + "\ty = " + d.y);
-					 })
-					 .append("title")
-					 .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+		scatter_3.append("text")
+		.attr("class", "label")
+		.attr("x",(width /2))
+		.attr("y",0 - (margin-top /2))
+		.attr("text-anchor","middle")
+		.style("font-size","15px")
+		.text("Anscombe III");
 
-			// Add the X Axis
-			scatter_4.append("g")
-				     .attr("transform","translate(0, " + height + ")")
-					 .call(d3.axisBottom(x));
+		// Add text labels
+		var xLabel = scatter_3.append("text")
+			.attr("class", "label")
+			.text("x-values")
+			.attr("x", width - 213)
+			.attr("y", height + 29);
 
-			// Add the Y Axis
-			scatter_4.append("g")
-					 .call(d3.axisLeft(y));
+		var yLabel = scatter_3.append("text")
+			.attr("class", "label")
+			.text("y-values")
+			.attr("x",  -183)
+			.attr("y", -28)
+			.attr("transform", "rotate(-90)");
+	});
 
-			// Add text labels
-			var xLabel = scatter_4.append("text")
-								  .attr("class", "label")
-								  .text("x-values")
-								  .attr("x", width - 445)
-								  .attr("y", height + 29);
+	var scatter_4 = d3.select("#scatter_4").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
 
-			 var yLabel =scatter_4.append("text")
-								  .attr("class", "label")
-								  .text("y-values")
-								  .attr("x",  -232)
-								  .attr("y", -23)
-								  .attr("transform", "rotate(-90)");
+	// Get the data
+	d3.csv("../data/anscombe_IV.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
 		});
+
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+
+		// Add the scatterplot points
+		scatter_4.selectAll("circle")
+			 .data(data)
+			 .enter()
+			 .append("circle")
+			 .attr("r", 5)
+			 .attr("cx", function(d){ return x(d[xVal]);})
+			 .attr("cy", function(d){ return y(d[yVal]);})
+			 .attr("stroke","red")
+			 .attr("fill","orange")
+			 .on("mouseover",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","blue")
+				.style("fill","steelblue")
+				.style("opacity", 0.5);
+				})
+			 .on("mouseout",function(d){
+				d3.select(this)
+				.transition()
+				.duration(500)
+				.style("stroke","red")
+				.style("fill","orange")
+				.style("opacity", 1);
+				})
+			 .on("click", function(d){
+				$("#scatterLabel_4").text("x = " + d.x + "\ty = " + d.y);
+				})
+			 .append("title")
+				.text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+
+		// Add the X Axis
+		scatter_4.append("g")
+			 .attr("transform","translate(0, " + height + ")")
+			 .call(d3.axisBottom(x));
+
+		// Add the Y Axis
+		scatter_4.append("g")
+			 .call(d3.axisLeft(y));
+
+		scatter_4.append("text")
+		.attr("class", "label")
+		.attr("x",(width /2))
+		.attr("y",0 - (margin-top /2))
+		.attr("text-anchor","middle")
+		.style("font-size","15px")
+		.text("Anscombe IV");
+
+		// Add text labels
+		var xLabel = scatter_4.append("text")
+			.attr("class", "label")
+			.text("x-values")
+			.attr("x", width - 213)
+			.attr("y", height + 29);
+
+		var yLabel = scatter_4.append("text")
+			.attr("class", "label")
+			.text("y-values")
+			.attr("x",  -183)
+			.attr("y", -28)
+			.attr("transform", "rotate(-90)");
+	});
 
 	// var bx = d3.scaleBand()
 	//           .range([0, width])
