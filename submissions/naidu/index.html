@@ -179,7 +179,7 @@
 	});
 
 	// Put your part three & four code here ***********************
-
+	// code for line raphs inspired from http://www.d3noob.org/2016/08/create-simple-line-graph-using-d3js-v4.html
 	var linesvg = d3.select("#linegraph").append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
@@ -200,7 +200,7 @@
 			d.x = parseInt(d.x);
 			d.y = parseFloat(d.y);
 		});
-
+		// helper code from https://stackoverflow.com/questions/25168086/sorting-objects-based-on-property-value-in-d3
 		data.sort(function(a,b){
 			return d3.ascending(a.x,b.x);
 		});
@@ -723,7 +723,10 @@
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
 		var barWidth = width / data.length;
-		// Add the scatterplot points
+
+		// Add the points
+		// code for bell inspired from https://bost.ocks.org/mike/bar/3/
+		// code for whistle inspired from http://bl.ocks.org/kbroman/ded6a0784706a109c3a5
 		barsvg1.selectAll("bar")
 		   .data(data)
 		   .enter()
