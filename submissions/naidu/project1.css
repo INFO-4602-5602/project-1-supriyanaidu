@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
     font-size: 11px;
-		background-color:white;
+		background-color:slateblue;
 }
 
 div{
@@ -31,4 +31,5 @@ div{
 .side1{
 		width: 50%;
 		float: left;
+		/* background-color:#AAF0D1; */
 }
