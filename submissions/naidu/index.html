@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<!-- <div id="Bell2">
+	<div id="Bell2">
 		<h1>Bell: Xs and Ys &amp; Whistle: Co-ordinated views</h1>
 		<div id="vBar" class="side1">
 			<p id="vBarLabel"></p>
@@ -56,7 +56,7 @@
 		<div id="hBar" class="side1">
 			<p id="hBarLabel"></p>
 		</div>
-	</div> -->
+	</div>
 
 	<script type="text/javascript">
 	// Put your part one code here ***********************
@@ -156,11 +156,11 @@
 
 		// Code modified from http://www.d3noob.org/2013/01/adding-title-to-your-d3js-graph.html
 		svg.append("text")
-		.attr("class", "label")
-		.attr("x",(width /2))
-		.attr("y",(margin.top /2))
-		.style("font-size","14px")
-		.text("Anscombe I");
+			.attr("class", "label")
+			.attr("x",(width /2))
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
+			.text("Anscombe I");
 
 		// Add text labels
 		var xLabel = svg.append("text")
@@ -279,6 +279,18 @@
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
 
+		var linear = calcLinear(data, "x", "y", d3.min(data, function(d){ return +d.x}), d3.min(data, function(d){ return +d.y}));
+
+		scatter_1.append("line")
+			.attr("stroke","grey")
+			// .attr("fill","none")
+			.attr("stroke-width","2px")
+			.attr("x1", x(linear.ptA.x))
+			.attr("y1", y(linear.ptA.y))
+			.attr("x2", x(linear.ptB.x))
+			.attr("y2", y(linear.ptB.y));
+
+
 		// Add the scatterplot points
 		scatter_1.selectAll("circle")
 			 .data(data)
@@ -321,11 +333,11 @@
 			 .call(d3.axisLeft(y));
 
 		scatter_1.append("text")
-		.attr("class", "label")
-		.attr("x",(width /2))
-		.attr("y",(margin.top /2))
-		.style("font-size","14px")
-		.text("Anscombe I");
+			.attr("class", "label")
+			.attr("x",(width /2))
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
+			.text("Anscombe I");
 
 		// Add text labels
 		var xLabel = scatter_1.append("text")
@@ -360,6 +372,18 @@
 		// Scale the range of the data
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+
+		var linear = calcLinear(data, "x", "y", d3.min(data, function(d){ return +d.x}), d3.min(data, function(d){ return +d.y}));
+
+		scatter_2.append("line")
+			.attr("stroke","grey")
+			// .attr("fill","none")
+			.attr("stroke-width","2px")
+			.attr("x1", x(linear.ptA.x))
+			.attr("y1", y(linear.ptA.y))
+			.attr("x2", x(linear.ptB.x))
+			.attr("y2", y(linear.ptB.y));
+
 
 		// Add the scatterplot points
 		scatter_2.selectAll("circle")
@@ -403,11 +427,11 @@
 			 .call(d3.axisLeft(y));
 
 		scatter_2.append("text")
-		.attr("class", "label")
-		.attr("x",(width /2))
-		.attr("y",(margin.top /2))
-		.style("font-size","14px")
-		.text("Anscombe II");
+			.attr("class", "label")
+			.attr("x",(width /2))
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
+			.text("Anscombe II");
 
 		// Add text labels
 		var xLabel = scatter_2.append("text")
@@ -442,6 +466,18 @@
 		// Scale the range of the data
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+
+		var linear = calcLinear(data, "x", "y", d3.min(data, function(d){ return +d.x}), d3.min(data, function(d){ return +d.y}));
+
+		scatter_3.append("line")
+			.attr("stroke","grey")
+			// .attr("fill","none")
+			.attr("stroke-width","2px")
+			.attr("x1", x(linear.ptA.x))
+			.attr("y1", y(linear.ptA.y))
+			.attr("x2", x(linear.ptB.x))
+			.attr("y2", y(linear.ptB.y));
+
 
 		// Add the scatterplot points
 		scatter_3.selectAll("circle")
@@ -485,11 +521,11 @@
 			 .call(d3.axisLeft(y));
 
 		scatter_3.append("text")
-		.attr("class", "label")
-		.attr("x",(width /2))
-		.attr("y",(margin.top /2))
-		.style("font-size","14px")
-		.text("Anscombe III");
+			.attr("class", "label")
+			.attr("x",(width /2))
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
+			.text("Anscombe III");
 
 		// Add text labels
 		var xLabel = scatter_3.append("text")
@@ -524,6 +560,17 @@
 		// Scale the range of the data
 		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
 		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+
+		var linear = calcLinear(data, "x", "y", d3.min(data, function(d){ return +d.x}), d3.min(data, function(d){ return +d.y}));
+
+		scatter_4.append("line")
+			.attr("stroke","grey")
+			// .attr("fill","none")
+			.attr("stroke-width","2px")
+			.attr("x1", x(linear.ptA.x))
+			.attr("y1", y(linear.ptA.y))
+			.attr("x2", x(linear.ptB.x))
+			.attr("y2", y(linear.ptB.y));
 
 		// Add the scatterplot points
 		scatter_4.selectAll("circle")
@@ -567,11 +614,11 @@
 			 .call(d3.axisLeft(y));
 
 		scatter_4.append("text")
-		.attr("class", "label")
-		.attr("x",(width /2))
-		.attr("y",(margin.top /2))
-		.style("font-size","14px")
-		.text("Anscombe IV");
+			.attr("class", "label")
+			.attr("x",(width /2))
+			.attr("y",(margin.top /2))
+			.style("font-size","14px")
+			.text("Anscombe IV");
 
 		// Add text labels
 		var xLabel = scatter_4.append("text")
@@ -588,87 +635,210 @@
 			.attr("transform", "rotate(-90)");
 	});
 
-	// var bx = d3.scaleBand()
-	//           .range([0, width])
-	//           .padding(0.1);
-	// var by = d3.scaleLinear()
-	//           .range([height, 0]);
+	// code taken from https://bl.ocks.org/HarryStevens/be559bed98d662f69e68fc8a7e0ad097
+	function calcLinear(data, x, y, minX, minY){
+      // Let n = the number of data points
+      var n = data.length;
+
+      // Get just the points
+      var pts = [];
+      data.forEach(function(d,i){
+        var obj = {};
+        obj.x = d[x];
+        obj.y = d[y];
+        obj.mult = obj.x*obj.y;
+        pts.push(obj);
+      });
+
+      // Let a equal n times the summation of all x-values multiplied by their corresponding y-values
+      // Let b equal the sum of all x-values times the sum of all y-values
+      // Let c equal n times the sum of all squared x-values
+      // Let d equal the squared sum of all x-values
+      var sum = 0;
+      var xSum = 0;
+      var ySum = 0;
+      var sumSq = 0;
+      pts.forEach(function(pt){
+        sum = sum + pt.mult;
+        xSum = xSum + pt.x;
+        ySum = ySum + pt.y;
+        sumSq = sumSq + (pt.x * pt.x);
+      });
+      var a = sum * n;
+      var b = xSum * ySum;
+      var c = sumSq * n;
+      var d = xSum * xSum;
+
+      // Plug the values that you calculated for a, b, c, and d into the following equation to calculate the slope
+      // slope = m = (a - b) / (c - d)
+      var m = (a - b) / (c - d);
+
+      // Let e equal the sum of all y-values
+      var e = ySum;
+
+      // Let f equal the slope times the sum of all x-values
+      var f = m * xSum;
+
+      // Plug the values you have calculated for e and f into the following equation for the y-intercept
+      // y-intercept = b = (e - f) / n
+      var b = (e - f) / n;
+
+			return {
+        ptA : {
+          x: minX,
+          y: m * minX + b
+        },
+        ptB : {
+          y: minY,
+          x: (minY - b) / m
+        }
+      }
+		}
   //
-	// var barsvg = d3.select("#vBar").append("svg")
-	// 	.attr("width", width + margin.left + margin.right)
-	// 	.attr("height", height + margin.top + margin.bottom)
-	// 	.append("g")
-	// 	.attr("transform", "translate("+margin.left + "," + margin.top +")");
-  //
-	// // Get the data
-	// d3.csv("data/anscombe_II.csv", function(error,data){
-	// 	if (error) throw error;
-	// 	// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
-	// 	data.forEach(function(d){
-	// 		d.bx = parseInt(d.bx);
-	// 		d.by = parseFloat(d.by);
-	// 	});
-  //
-	// 	// Scale the range of the data
-	// 	bx.domain(data.map(function(d) { return d[xVal];}));
-	// 	by.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
-  //
-	// 	// Add the scatterplot points
-	// 	barsvg.selectAll("bar")
-	// 	   .data(data)
-	// 	   .enter()
-	// 	   .append("rect")
-	// 	   .attr("bx", function(d){ return bx(d[xVal]);})
-	// 		 .attr("width", bx.bandwidth())
-	// 	   .attr("by", function(d){ return by(d[yVal]);})
-	// 		 .attr("height", function(d) { return height - by(d[yVal]); })
-	// 	   // .attr("stroke","red")
-	// 	   .attr("fill","purple");
-	// 	  //  .on("mouseover",function(d){
-	// 		// 	 d3.select(this)
-	// 		//   .transition()
-	// 		//   .duration(500)
-	// 		//   .style("stroke","blue")
-	// 		//   .style("fill","steelblue")
-	// 		//   .style("opacity", 0.5);
-	// 		// })
-	// 		// .on("mouseout",function(d){
-	// 		// d3.select(this)
-	// 		//   .transition()
-	// 		//   .duration(500)
-	// 		//   .style("stroke","red")
-	// 	  //     .style("fill","orange")
-	// 		//   .style("opacity", 1);
-	// 		// })
-	// 		// .on("click", function(d){
-	// 		// 	$("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
-	// 		// })
-	// 		// .append("title")
-	// 		// .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
-  //
-	// 	// Add the X Axis
-	// 	barsvg.append("g")
-	// 	   .attr("transform","translate(0, " + height + ")")
-	// 	   .call(d3.axisBottom(x));
-  //
-	// 	// Add the Y Axis
-	// 	barsvg.append("g")
-	// 	   .call(d3.axisLeft(y));
-  //
-	// 	// Add text labels
-	// 	var xLabel = barsvg.append("text")
-	// 					.attr("class", "label")
-	// 					.text("x-values")
-	// 					.attr("x", width - 445)
-	// 					.attr("y", height + 29);
-  //
-	// 	var yLabel = barsvg.append("text")
-	// 					.attr("class", "label")
-	// 					.text("y-values")
-	// 					.attr("x",  -232)
-	// 					.attr("y", -23)
-	// 					.attr("transform", "rotate(-90)");
-	// });
+	var bx = d3.scaleBand()
+	          .range([0, width])
+	          .padding(0.1);
+	var by = d3.scaleLinear()
+	          .range([height, 0]);
+
+	var barsvg1 = d3.select("#vBar").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
+
+	var barsvg2 = d3.select("#hBar").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate("+margin.left + "," + margin.top +")");
+	// Get the data
+	d3.csv("data/anscombe_I.csv", function(error,data){
+		if (error) throw error;
+		// without parseInt, d3.max is not parsing them to integers; reference:https://stackoverflow.com/questions/30874617/d3-max-didnt-get-the-correct-value
+		data.forEach(function(d){
+			d.x = parseInt(d.x);
+			d.y = parseFloat(d.y);
+		});
+
+		// Scale the range of the data
+		x.domain([3, d3.max(data, function(d) {return d[xVal]+1;})]);
+		y.domain([0, d3.max(data, function(d) {return d[yVal]+1;})]);
+		bx.domain(data.map(function(d) { return d.xVal; }));
+  	by.domain(data.map(function(d) { return d.yVal; }));
+
+		var barWidth = width / data.length;
+		// Add the scatterplot points
+		barsvg1.selectAll("bar")
+		   .data(data)
+		   .enter()
+		   .append("rect")
+		   .attr("x", function(d){ return x(d[xVal]);})
+			 .attr("width", barWidth / 3)
+		   .attr("y", function(d){ return y(d[yVal]);})
+			 .attr("height", function(d) { return height - y(d[yVal]); })
+		   // .attr("stroke","red")
+		   .attr("fill","purple");
+		  //  .on("mouseover",function(d){
+			// 	 d3.select(this)
+			//   .transition()
+			//   .duration(500)
+			//   .style("stroke","blue")
+			//   .style("fill","steelblue")
+			//   .style("opacity", 0.5);
+			// })
+			// .on("mouseout",function(d){
+			// d3.select(this)
+			//   .transition()
+			//   .duration(500)
+			//   .style("stroke","red")
+		  //     .style("fill","orange")
+			//   .style("opacity", 1);
+			// })
+			// .on("click", function(d){
+			// 	$("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
+			// })
+			// .append("title")
+			// .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+
+		// Add the X Axis
+		barsvg1.append("g")
+		   .attr("transform","translate(0, " + height + ")")
+		   .call(d3.axisBottom(x));
+
+		// Add the Y Axis
+		barsvg1.append("g")
+		   .call(d3.axisLeft(y));
+
+		// Add text labels
+		var xLabel = barsvg1.append("text")
+						.attr("class", "label")
+						.text("x-values")
+						.attr("x", width - 445)
+						.attr("y", height + 29);
+
+		var yLabel = barsvg1.append("text")
+						.attr("class", "label")
+						.text("y-values")
+						.attr("x",  -232)
+						.attr("y", -23)
+						.attr("transform", "rotate(-90)");
+
+		barsvg2.selectAll("bar")
+			 .data(data)
+			 .enter()
+			 .append("rect")
+			 .attr("x", 0)
+			 .attr("width", function(d) { return width - x(d[xVal]); })
+			 .attr("y", function(d){ return y(d[yVal]);})
+			 .attr("height", barWidth / 3)
+			 // .attr("stroke","red")
+			 .attr("fill","purple");
+			//  .on("mouseover",function(d){
+			// 	 d3.select(this)
+			//   .transition()
+			//   .duration(500)
+			//   .style("stroke","blue")
+			//   .style("fill","steelblue")
+			//   .style("opacity", 0.5);
+			// })
+			// .on("mouseout",function(d){
+			// d3.select(this)
+			//   .transition()
+			//   .duration(500)
+			//   .style("stroke","red")
+			//     .style("fill","orange")
+			//   .style("opacity", 1);
+			// })
+			// .on("click", function(d){
+			// 	$("#scatterLabel").text("x = " + d.x + "\ty = " + d.y);
+			// })
+			// .append("title")
+			// .text(function(d) { return "x = " + d.x + " \ny = " + d.y});
+
+		// Add the X Axis
+		barsvg2.append("g")
+			 .attr("transform","translate(0, " + height + ")")
+			 .call(d3.axisBottom(x));
+
+		// Add the Y Axis
+		barsvg2.append("g")
+			 .call(d3.axisLeft(y));
+
+		// Add text labels
+		var xLabel = barsvg2.append("text")
+						.attr("class", "label")
+						.text("x-values")
+						.attr("x", width - 445)
+						.attr("y", height + 29);
+
+		var yLabel = barsvg2.append("text")
+						.attr("class", "label")
+						.text("y-values")
+						.attr("x",  -232)
+						.attr("y", -23)
+						.attr("transform", "rotate(-90)");
+	});
 
     </script>
 </body>
